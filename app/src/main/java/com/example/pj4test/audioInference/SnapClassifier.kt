@@ -5,6 +5,7 @@ import android.media.AudioRecord
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.example.pj4test.fragment.AudioFragment
 import org.tensorflow.lite.support.audio.TensorAudio
 import org.tensorflow.lite.task.audio.classifier.AudioClassifier
 import java.util.*
@@ -93,20 +94,27 @@ class SnapClassifier {
      *
      * @return  A score of the maximum float value among three classes
      */
-    fun inference(): Float {
+    fun inference(category: String): Float {
         tensor.load(recorder)
         Log.d(TAG, tensor.tensorBuffer.shape.joinToString(","))
         val output = classifier.classify(tensor)
         Log.d(TAG, output.toString())
 
-        return output[0].categories.find { it.label == "Finger snapping" }!!.score
+        return output[0].categories.find { it.label == category }!!.score
     }
 
     fun startInferencing() {
         if (task == null) {
             task = Timer().scheduleAtFixedRate(0, REFRESH_INTERVAL_MS) {
-                val score = inference()
-                detectorListener?.onResults(score)
+                val snapScore = inference("Finger snapping")
+                val snoreScore = inference("Snoring")
+                val noiseScore = inference("Noise")
+                val score = ArrayList<Float>()
+                score.add(snapScore)
+                score.add(snoreScore)
+                score.add(noiseScore)
+                (detectorListener as AudioFragment)?.onResultsMultiple(score)
+//                detectorListener?.onResultsMultiple(snapScore)
             }
         }
     }

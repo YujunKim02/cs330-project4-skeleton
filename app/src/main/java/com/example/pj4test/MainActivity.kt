@@ -12,6 +12,9 @@ import android.widget.Switch
 import android.widget.Toast
 import android.widget.TextView
 import android.util.Log
+import android.view.View
+import android.view.View.OnClickListener
+import android.widget.Button
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +24,7 @@ import java.text.SimpleDateFormat
 import kotlin.time.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnClickListener {
     private val TAG = "MainActivity"
 
     var start : Long = 0
@@ -35,11 +38,25 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.start_page)
+        findViewById<Button>(R.id.button).setOnClickListener(this)
+    }
+    fun vibrate() {
+        vibrator?.vibrate(VibrationEffect.createOneShot(500, 100))
+    }
+    private fun checkPermissions() {
+        if (permissions.all{ActivityCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED}){
+            Log.d(TAG, "All Permission Granted")
+        }
+        else{
+            requestPermissions(permissions, PERMISSIONS_REQUEST)
+        }
+    }
+    fun switchToMain() {
         setContentView(R.layout.activity_main)
-
         var sw1 : Switch = findViewById(R.id.switch1)
 
-        sw1?.setOnCheckedChangeListener({ _ , isChecked ->
+        sw1?.setOnCheckedChangeListener{ _ , isChecked ->
             val message = if (isChecked) "TIMER ON" else "TIMER OFF"
             if (isChecked) {
                 start = System.currentTimeMillis()
@@ -63,20 +80,13 @@ class MainActivity : AppCompatActivity() {
             }
             Toast.makeText(this@MainActivity, message,
                 Toast.LENGTH_SHORT).show()
-        })
+        }
 
         checkPermissions() // check permissions
         vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
     }
-    fun vibrate() {
-        vibrator?.vibrate(VibrationEffect.createOneShot(500, 100))
-    }
-    private fun checkPermissions() {
-        if (permissions.all{ActivityCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED}){
-            Log.d(TAG, "All Permission Granted")
-        }
-        else{
-            requestPermissions(permissions, PERMISSIONS_REQUEST)
-        }
+
+    override fun onClick(p0: View?) {
+        switchToMain()
     }
 }

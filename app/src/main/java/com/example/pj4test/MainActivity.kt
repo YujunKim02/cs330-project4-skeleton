@@ -8,16 +8,25 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.widget.Switch
+import android.widget.Toast
+import android.widget.TextView
 import android.util.Log
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import java.util.*
+import java.text.SimpleDateFormat
+import kotlin.time.*
 
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
+
+    var start : Long = 0
+    var end : Long = 0
+    var inter : Long = 0
 
     // permissions
     private val permissions = arrayOf(RECORD_AUDIO, CAMERA)
@@ -27,6 +36,34 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var sw1 : Switch = findViewById(R.id.switch1)
+
+        sw1?.setOnCheckedChangeListener({ _ , isChecked ->
+            val message = if (isChecked) "TIMER ON" else "TIMER OFF"
+            if (isChecked) {
+                start = System.currentTimeMillis()
+
+                val date = Date(start)
+                val mFormat = SimpleDateFormat("HH:mm")
+                val time = mFormat.format(date)
+                val text1 : TextView = findViewById(R.id.switch1)
+                text1.setText("Start Time : " + time)
+            }
+            else {
+                end = System.currentTimeMillis()
+                inter = end - start
+
+                val date = Date(inter)
+                val mFormat = SimpleDateFormat("mm 분 ss 초")
+                val time = mFormat.format(date)
+                val text1 : TextView = findViewById(R.id.switch1)
+
+                text1.setText("Study Time : " + time)
+            }
+            Toast.makeText(this@MainActivity, message,
+                Toast.LENGTH_SHORT).show()
+        })
 
         checkPermissions() // check permissions
         vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator

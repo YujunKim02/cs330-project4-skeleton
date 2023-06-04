@@ -57,11 +57,12 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             val mFormat = SimpleDateFormat("mm 분 ss 초")
             val time = mFormat.format(date)
             sw1?.text = "Study Time : " + time
+            intent.putExtra("Study Time", time)
             startActivity(intent)
         }
     }
     fun vibrate() {
-        vibrator?.vibrate(VibrationEffect.createOneShot(500, 100))
+        vibrator?.vibrate(VibrationEffect.createOneShot(500, 3100))
     }
     private fun checkPermissions() {
         if (permissions.all{ActivityCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED}){

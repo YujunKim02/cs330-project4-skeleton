@@ -10,8 +10,11 @@ class SubActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sub)
+        val studyTime = intent.getStringExtra("Study Time")
 
         var trans_btn : ImageButton = findViewById(R.id.transition_button)
+        var study_time_view: TextView = findViewById(R.id.textView4)
+        study_time_view.text = "Study Time: " + studyTime
         trans_btn.setOnClickListener {
             finish()
         }

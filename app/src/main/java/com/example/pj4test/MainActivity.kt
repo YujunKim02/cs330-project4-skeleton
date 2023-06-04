@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
         var reset_btn : Button = findViewById<Button>(R.id.resetButton)
         reset_btn.setOnClickListener {
-            sw1.isChecked = false
+            sw1?.isChecked = false
             val text1 : TextView = findViewById(R.id.switch1)
             text1.setText("Timer")
             inter = 0

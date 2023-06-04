@@ -33,13 +33,15 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
     // permissions
     private val permissions = arrayOf(RECORD_AUDIO, CAMERA)
-    private val PERMISSIONS_REQUEST = 0x0000001;
+    private val PERMISSIONS_REQUEST = 0x0000001
+    var base: LinearLayout? = null
     var vibrator: Vibrator? = null
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.start_page)
-        findViewById<Button>(R.id.button).setOnClickListener(this)
+        switchToMain()
+//        setContentView(R.layout.activity_main)
+//        findViewById<Button>(R.id.button).setOnClickListener(this)
     }
     fun vibrate() {
         vibrator?.vibrate(VibrationEffect.createOneShot(500, 100))
@@ -52,8 +54,19 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             requestPermissions(permissions, PERMISSIONS_REQUEST)
         }
     }
+    override fun onBackPressed() {
+        switchToStart()
+    }
+    fun switchToStart() {
+        setContentView(R.layout.start_page)
+//        base?.removeAllViews()
+//        base?.addView(findViewById(R.id.start_page))
+        findViewById<Button>(R.id.button).setOnClickListener(this)
+    }
     fun switchToMain() {
         setContentView(R.layout.activity_main)
+//        base?.removeAllViews()
+//        base?.addView(findViewById((R.id.activity_main)))
         var sw1 : Switch = findViewById(R.id.switch1)
 
         sw1?.setOnCheckedChangeListener{ _ , isChecked ->

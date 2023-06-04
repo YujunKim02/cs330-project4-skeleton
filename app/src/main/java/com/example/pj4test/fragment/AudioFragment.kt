@@ -74,7 +74,7 @@ class AudioFragment: Fragment(), SnapClassifier.DetectorListener {
             val snoreScore = score[1]
             val noiseScore = score[2]
 
-            snapView.text = "snap" + "%.2f".format(snapScore) + "\n" + "snore" + "%.2f".format(snoreScore) + "\n" + "noise" + "%.2f".format(noiseScore)
+            snapView.text = "snore" + "%.2f".format(snoreScore) + "\n" + "noise" + "%.2f".format(noiseScore)
 
             if (snoreScore > THRESHOLD) {
                 (activity as MainActivity).vibrate()
@@ -96,6 +96,6 @@ class AudioFragment: Fragment(), SnapClassifier.DetectorListener {
         }
     }
     companion object {
-        const val THRESHOLD = 0.3f
+        const val THRESHOLD = 0.5f
     }
 }

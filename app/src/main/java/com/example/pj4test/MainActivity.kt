@@ -124,6 +124,6 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     }
 
     override fun onClick(p0: View?) {
-        switchToMain()
+//        findViewById<View>(android.R.id.content).getRootView().
     }
 }

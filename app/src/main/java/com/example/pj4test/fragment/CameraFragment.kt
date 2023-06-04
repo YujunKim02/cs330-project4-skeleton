@@ -35,6 +35,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.pj4test.MainActivity
 import com.example.pj4test.ProjectConfiguration
 import java.util.LinkedList
 import java.util.concurrent.ExecutorService
@@ -181,7 +182,11 @@ class CameraFragment : Fragment(), PersonClassifier.DetectorListener {
         val imageRotation = image.imageInfo.rotationDegrees
 
         // Pass Bitmap and rotation to the object detector helper for processing and detection
-        personClassifier.detect(bitmapBuffer, imageRotation)
+        if ((activity as MainActivity).sw1?.isChecked == true) {
+            personClassifier.detect(bitmapBuffer, imageRotation)
+        } else {
+
+        }
     }
 
     // Update UI after objects have been detected. Extracts original image height/width

@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     var start : Long = 0
     var end : Long = 0
     var inter : Long = 0
-
+    var sw1: Switch? = null
     // permissions
     private val permissions = arrayOf(RECORD_AUDIO, CAMERA)
     private val PERMISSIONS_REQUEST = 0x0000001
@@ -67,7 +67,8 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         setContentView(R.layout.activity_main)
 //        base?.removeAllViews()
 //        base?.addView(findViewById((R.id.activity_main)))
-        var sw1 : Switch = findViewById(R.id.switch1)
+        sw1 = findViewById(R.id.switch1)
+
 
         sw1?.setOnCheckedChangeListener{ _ , isChecked ->
             val message = if (isChecked) "TIMER ON" else "TIMER OFF"

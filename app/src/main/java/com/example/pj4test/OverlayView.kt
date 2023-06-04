@@ -30,7 +30,7 @@ import kotlin.math.max
 import org.tensorflow.lite.task.vision.detector.Detection
 
 class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
-
+    private var activity: MainActivity = context as MainActivity
     private var results: List<Detection> = LinkedList<Detection>()
     private var boxPaint = Paint()
     private var textBackgroundPaint = Paint()
@@ -68,7 +68,9 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
-
+        if (activity.sw1?.isChecked == false) {
+            return
+        }
         for (result in results) {
             val boundingBox = result.boundingBox
 

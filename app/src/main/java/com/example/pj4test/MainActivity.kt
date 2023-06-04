@@ -48,6 +48,12 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         var back_btn : ImageButton = findViewById(R.id.back_button)
         back_btn.setOnClickListener {
             val intent = Intent(this, SubActivity::class.java)
+            sw1?.isChecked = false
+            inter = inter + end - start
+            val date = Date(inter)
+            val mFormat = SimpleDateFormat("mm 분 ss 초")
+            val time = mFormat.format(date)
+            sw1?.text = "Study Time : " + time
             startActivity(intent)
         }
     }

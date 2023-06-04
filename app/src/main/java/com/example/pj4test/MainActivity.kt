@@ -3,6 +3,7 @@ package com.example.pj4test
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.RECORD_AUDIO
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -15,6 +16,7 @@ import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -42,6 +44,12 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         switchToMain()
 //        setContentView(R.layout.activity_main)
 //        findViewById<Button>(R.id.button).setOnClickListener(this)
+
+        var back_btn : ImageButton = findViewById(R.id.back_button)
+        back_btn.setOnClickListener {
+            val intent = Intent(this, SubActivity::class.java)
+            startActivity(intent)
+        }
     }
     fun vibrate() {
         vibrator?.vibrate(VibrationEffect.createOneShot(500, 100))

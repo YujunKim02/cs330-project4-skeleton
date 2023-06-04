@@ -78,11 +78,11 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 val mFormat = SimpleDateFormat("HH:mm")
                 val time = mFormat.format(date)
                 val text1 : TextView = findViewById(R.id.switch1)
-                text1.setText("Start Time : " + time)
+                text1.setText("Studying")
             }
             else {
                 end = System.currentTimeMillis()
-                inter = end - start
+                inter = inter + end - start
 
                 val date = Date(inter)
                 val mFormat = SimpleDateFormat("mm 분 ss 초")

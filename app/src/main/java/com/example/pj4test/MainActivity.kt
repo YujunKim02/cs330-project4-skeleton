@@ -72,15 +72,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             requestPermissions(permissions, PERMISSIONS_REQUEST)
         }
     }
-    override fun onBackPressed() {
-        switchToStart()
-    }
-    fun switchToStart() {
-        setContentView(R.layout.start_page)
-//        base?.removeAllViews()
-//        base?.addView(findViewById(R.id.start_page))
-        findViewById<Button>(R.id.button).setOnClickListener(this)
-    }
+
     fun switchToMain() {
         setContentView(R.layout.activity_main)
 //        base?.removeAllViews()

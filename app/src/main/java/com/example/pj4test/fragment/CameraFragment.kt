@@ -207,19 +207,18 @@ class CameraFragment : Fragment(), PersonClassifier.DetectorListener {
             
             // find at least one bounding box of the person
             val isPersonDetected: Boolean = results!!.find { it.categories[0].label == "person" } != null
-            var tOn = 0;
             // change UI according to the result
             if (isPersonDetected) {
-                if (tOn != 1) {
-                    tOn = 1
+                if ((activity as MainActivity).tOn != 1) {
+                    (activity as MainActivity).tOn = 1
                     (activity as MainActivity).start_person = System.currentTimeMillis()
                 }
                 personView.text = "You are here!"
                 personView.setBackgroundColor(ProjectConfiguration.activeBackgroundColor)
                 personView.setTextColor(ProjectConfiguration.activeTextColor)
             } else {
-                if (tOn == 1) {
-                    tOn = 0
+                if ((activity as MainActivity).tOn == 1) {
+                    (activity as MainActivity).tOn = 0
                     (activity as MainActivity).end_person = System.currentTimeMillis()
                     (activity as MainActivity).inter_person = (activity as MainActivity).inter_person + (activity as MainActivity).end_person - (activity as MainActivity).start_person
                 }

@@ -15,6 +15,11 @@ class SubActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sub)
         val timerperson : TextView = findViewById(R.id.timerPerson)
+        if (MainActivity().tOn != 0) {
+            MainActivity().tOn = 0
+            MainActivity().end_person = System.currentTimeMillis()
+            MainActivity().inter_person = MainActivity().inter_person + MainActivity().end_person - MainActivity().start_person
+        }
         val date = Date(MainActivity().inter_person)
         val mFormat = SimpleDateFormat("mm 분 ss 초")
         val time = mFormat.format(date)

@@ -28,7 +28,9 @@ import kotlin.time.*
 
 class MainActivity : AppCompatActivity(), OnClickListener {
     private val TAG = "MainActivity"
-
+    var start_person : Long = 0
+    var end_person : Long = 0
+    var inter_person : Long = 0
     var start : Long = 0
     var end : Long = 0
     var inter : Long = 0

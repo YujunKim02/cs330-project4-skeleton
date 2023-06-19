@@ -18,9 +18,11 @@ import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import kotlinx.android.synthetic.main.activity_main.snoreProgressBar
 import java.util.*
 import java.text.SimpleDateFormat
 import kotlin.time.*
@@ -33,18 +35,21 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     var end : Long = 0
     var inter : Long = 0
     var sw1: Switch? = null
+    var sw2: Switch? = null
     // permissions
     private val permissions = arrayOf(RECORD_AUDIO, CAMERA)
     private val PERMISSIONS_REQUEST = 0x0000001
     var base: LinearLayout? = null
     var vibrator: Vibrator? = null
+    var progressBar: ProgressBar? = null
+    var snoreProgressBar: ProgressBar? = null
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         switchToMain()
 //        setContentView(R.layout.activity_main)
 //        findViewById<Button>(R.id.button).setOnClickListener(this)
-
+        sw2 = Switch(this)
         var back_btn : ImageButton = findViewById(R.id.back_button)
         back_btn.setOnClickListener {
             val intent = Intent(this, SubActivity::class.java)
@@ -60,9 +65,11 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             intent.putExtra("Study Time", time)
             startActivity(intent)
         }
+        progressBar = findViewById(R.id.progressBar)
+        snoreProgressBar = findViewById(R.id.snoreProgressBar)
     }
     fun vibrate() {
-        vibrator?.vibrate(VibrationEffect.createOneShot(500, 3100))
+        vibrator?.vibrate(VibrationEffect.createOneShot(500, 100))
     }
     private fun checkPermissions() {
         if (permissions.all{ActivityCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED}){
@@ -84,7 +91,6 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             val message = if (isChecked) "TIMER ON" else "TIMER OFF"
             if (isChecked) {
                 start = System.currentTimeMillis()
-
                 val date = Date(start)
                 val mFormat = SimpleDateFormat("HH:mm")
                 val time = mFormat.format(date)

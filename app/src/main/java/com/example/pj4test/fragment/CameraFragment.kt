@@ -23,6 +23,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.camera.core.AspectRatio
@@ -37,6 +38,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.pj4test.MainActivity
 import com.example.pj4test.ProjectConfiguration
+import com.example.pj4test.R
 import java.util.LinkedList
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -99,6 +101,9 @@ class CameraFragment : Fragment(), PersonClassifier.DetectorListener {
         }
 
         personView = fragmentCameraBinding.PersonView
+        personView.text = "Where are you?"
+        personView.setBackgroundColor(ProjectConfiguration.idleBackgroundColor)
+        personView.setTextColor(ProjectConfiguration.idleTextColor)
     }
 
     // Initialize CameraX, and prepare to bind the camera use cases
@@ -207,12 +212,13 @@ class CameraFragment : Fragment(), PersonClassifier.DetectorListener {
             
             // find at least one bounding box of the person
             val isPersonDetected: Boolean = results!!.find { it.categories[0].label == "person" } != null
-            
+            val switch = (activity as MainActivity).sw1 as Switch
             // change UI according to the result
             if (isPersonDetected) {
                 personView.text = "You are here!"
                 personView.setBackgroundColor(ProjectConfiguration.activeBackgroundColor)
                 personView.setTextColor(ProjectConfiguration.activeTextColor)
+                switch
             } else {
                 personView.text = "Where are you?"
                 personView.setBackgroundColor(ProjectConfiguration.idleBackgroundColor)

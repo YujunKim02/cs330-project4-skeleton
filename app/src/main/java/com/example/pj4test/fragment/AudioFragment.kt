@@ -18,6 +18,8 @@ class AudioFragment: Fragment(), SnapClassifier.DetectorListener {
 
     private var _fragmentAudioBinding: FragmentAudioBinding? = null
     private var resultButton: Button? = null
+    private var noiseScore: Float = 0f
+    private var snoreScore: Float = 0f
 
     private val fragmentAudioBinding
         get() = _fragmentAudioBinding!!
@@ -71,11 +73,12 @@ class AudioFragment: Fragment(), SnapClassifier.DetectorListener {
 //                snapView.setTextColor(ProjectConfiguration.idleTextColor)
 //            }
             val snapScore = score[0]
-            val snoreScore = score[1]
-            val noiseScore = score[2]
+            snoreScore = (0.2f*score[1] + 0.8f*snoreScore)
+            noiseScore = (0.2f*score[2] + 0.8f*noiseScore)
 
-            snapView.text = "snore" + "%.2f".format(snoreScore) + "\n" + "noise" + "%.2f".format(noiseScore)
-
+//            snapView.text = "snore" + "%.2f".format(snoreScore) + "\n" + "noise" + "%.2f".format(noiseScore)
+            (activity as MainActivity).progressBar?.progress = (noiseScore!!*100).toInt()
+            (activity as MainActivity).snoreProgressBar?.progress = (snoreScore!!*100).toInt()
             if (snoreScore > THRESHOLD) {
                 (activity as MainActivity).vibrate()
             }
@@ -83,17 +86,17 @@ class AudioFragment: Fragment(), SnapClassifier.DetectorListener {
     }
 
     override fun onResults(score: Float) {
-        activity?.runOnUiThread {
-            if (score > SnapClassifier.THRESHOLD) {
-                snapView.text = "SNAP"
-                snapView.setBackgroundColor(ProjectConfiguration.activeBackgroundColor)
-                snapView.setTextColor(ProjectConfiguration.activeTextColor)
-            } else {
-                snapView.text = "NO SNAP"
-                snapView.setBackgroundColor(ProjectConfiguration.idleBackgroundColor)
-                snapView.setTextColor(ProjectConfiguration.idleTextColor)
-            }
-        }
+//        activity?.runOnUiThread {
+//            if (score > SnapClassifier.THRESHOLD) {
+//                snapView.text = "SNAP"
+//                snapView.setBackgroundColor(ProjectConfiguration.activeBackgroundColor)
+//                snapView.setTextColor(ProjectConfiguration.activeTextColor)
+//            } else {
+//                snapView.text = "NO SNAP"
+//                snapView.setBackgroundColor(ProjectConfiguration.idleBackgroundColor)
+//                snapView.setTextColor(ProjectConfiguration.idleTextColor)
+//            }
+//        }
     }
     companion object {
         const val THRESHOLD = 0.5f

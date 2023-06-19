@@ -72,6 +72,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
             return
         }
         for (result in results) {
+            if (result.categories[0].label != "person") continue
             val boundingBox = result.boundingBox
 
             val top = boundingBox.top * scaleFactor

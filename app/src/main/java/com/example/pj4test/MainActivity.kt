@@ -23,6 +23,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import kotlinx.android.synthetic.main.activity_main.snoreProgressBar
+import kotlinx.android.synthetic.main.activity_sub.timerPerson
 import java.util.*
 import java.text.SimpleDateFormat
 import kotlin.time.*
@@ -66,6 +67,8 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             val time = mFormat.format(date)
             sw1?.text = "Study Time : " + time
             intent.putExtra("Study Time", time)
+            tOn=0
+            inter_person = inter_person + end_person - start_person
             val date_person = Date(inter_person)
             val time_person = mFormat.format(date_person)
             intent.putExtra("Person Time", time_person)

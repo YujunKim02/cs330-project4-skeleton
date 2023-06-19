@@ -67,8 +67,10 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             val time = mFormat.format(date)
             sw1?.text = "Study Time : " + time
             intent.putExtra("Study Time", time)
-            tOn=0
-            inter_person = inter_person + end_person - start_person
+            if (tOn==1) {
+                tOn = 0
+                inter_person = inter_person + end_person - start_person
+            }
             val date_person = Date(inter_person)
             val time_person = mFormat.format(date_person)
             intent.putExtra("Person Time", time_person)

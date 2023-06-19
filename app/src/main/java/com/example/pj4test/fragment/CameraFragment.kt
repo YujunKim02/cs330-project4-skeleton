@@ -45,9 +45,6 @@ import java.util.concurrent.Executors
 import com.example.pj4test.cameraInference.PersonClassifier
 import com.example.pj4test.databinding.FragmentCameraBinding
 import org.tensorflow.lite.task.vision.detector.Detection
-import java.util.LinkedList
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
 class CameraFragment : Fragment(), PersonClassifier.DetectorListener {
     private val TAG = "CameraFragment"

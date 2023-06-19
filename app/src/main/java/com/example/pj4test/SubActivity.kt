@@ -30,18 +30,23 @@ class SubActivity : AppCompatActivity() {
         var trans_btn : ImageButton = findViewById(R.id.transition_button)
         var study_time_view: TextView = findViewById(R.id.textView4)
         study_time_view.text = "Study Time: " + studyTime
+
+        val personTime = intent.getStringExtra("Person Time")
+        var timerperson : TextView = findViewById(R.id.timerPerson)
+        timerperson.setText(personTime)
+
         trans_btn.setOnClickListener {
             finish()
         }
     }
 
-    override fun onStart() {
-        val timerperson : TextView = findViewById(R.id.timerPerson)
-        super.onStart()
-        val date = Date(MainActivity().inter_person)
-        val mFormat = SimpleDateFormat("mm 분 ss 초")
-        val time = mFormat.format(date)
-        timerperson.setText(time)
-        val studyTime = intent.getStringExtra("Study Time")
-    }
+//    override fun onStart() {
+//        val timerperson : TextView = findViewById(R.id.timerPerson)
+//        super.onStart()
+//        val date = Date(MainActivity().inter_person)
+//        val mFormat = SimpleDateFormat("mm 분 ss 초")
+//        val time = mFormat.format(date)
+//        timerperson.setText(time)
+//        val studyTime = intent.getStringExtra("Study Time")
+//    }
 }

@@ -66,6 +66,9 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             val time = mFormat.format(date)
             sw1?.text = "Study Time : " + time
             intent.putExtra("Study Time", time)
+            val date_person = Date(inter_person)
+            val time_person = mFormat.format(date_person)
+            intent.putExtra("Person Time", time_person)
             startActivity(intent)
         }
         progressBar = findViewById(R.id.progressBar)

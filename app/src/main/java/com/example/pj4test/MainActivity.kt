@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     var inter : Long = 0
     var sw1: Switch? = null
     var sw2: Switch? = null
+    var isTimerON : Int = 0
     // permissions
     private val permissions = arrayOf(RECORD_AUDIO, CAMERA)
     private val PERMISSIONS_REQUEST = 0x0000001
@@ -102,6 +103,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         sw1?.setOnCheckedChangeListener{ _ , isChecked ->
             val message = if (isChecked) "TIMER ON" else "TIMER OFF"
             if (isChecked) {
+                isTimerON = 1
                 start = System.currentTimeMillis()
                 val date = Date(start)
                 val mFormat = SimpleDateFormat("HH:mm")
@@ -110,6 +112,12 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 text1.setText("Studying")
             }
             else {
+                isTimerON = 0
+                if (tOn ==1) {
+                    tOn = 0
+                    end_person = System.currentTimeMillis()
+                    inter_person = inter_person + end_person - start_person
+                }
                 end = System.currentTimeMillis()
                 inter = inter + end - start
 

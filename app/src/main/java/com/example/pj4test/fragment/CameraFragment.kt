@@ -215,7 +215,7 @@ class CameraFragment : Fragment(), PersonClassifier.DetectorListener {
             val switch = (activity as MainActivity).sw1 as Switch
             // change UI according to the result
             if (isPersonDetected) {
-                if ((activity as MainActivity).tOn != 1) {
+                if (((activity as MainActivity).tOn != 1) && (activity as MainActivity).isTimerON==1) {
                     (activity as MainActivity).tOn = 1
                     (activity as MainActivity).start_person = System.currentTimeMillis()
                 }

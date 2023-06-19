@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             intent.putExtra("Study Time", time)
             if (tOn==1) {
                 tOn = 0
+                end_person = System.currentTimeMillis()
                 inter_person = inter_person + end_person - start_person
             }
             val date_person = Date(inter_person)
@@ -129,6 +130,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             val text1 : TextView = findViewById(R.id.switch1)
             text1.setText("Timer")
             inter = 0
+            inter_person = 0
             start = System.currentTimeMillis()
         }
 

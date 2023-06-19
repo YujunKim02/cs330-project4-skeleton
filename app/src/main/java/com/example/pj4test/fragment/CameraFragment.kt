@@ -45,6 +45,9 @@ import java.util.concurrent.Executors
 import com.example.pj4test.cameraInference.PersonClassifier
 import com.example.pj4test.databinding.FragmentCameraBinding
 import org.tensorflow.lite.task.vision.detector.Detection
+import java.util.LinkedList
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class CameraFragment : Fragment(), PersonClassifier.DetectorListener {
     private val TAG = "CameraFragment"
@@ -215,11 +218,20 @@ class CameraFragment : Fragment(), PersonClassifier.DetectorListener {
             val switch = (activity as MainActivity).sw1 as Switch
             // change UI according to the result
             if (isPersonDetected) {
+                if ((activity as MainActivity).tOn != 1) {
+                    (activity as MainActivity).tOn = 1
+                    (activity as MainActivity).start_person = System.currentTimeMillis()
+                }
                 personView.text = "You are here!"
                 personView.setBackgroundColor(ProjectConfiguration.activeBackgroundColor)
                 personView.setTextColor(ProjectConfiguration.activeTextColor)
                 switch
             } else {
+                if ((activity as MainActivity).tOn == 1) {
+                    (activity as MainActivity).tOn = 0
+                    (activity as MainActivity).end_person = System.currentTimeMillis()
+                    (activity as MainActivity).inter_person = (activity as MainActivity).inter_person + (activity as MainActivity).end_person - (activity as MainActivity).start_person
+                }
                 personView.text = "Where are you?"
                 personView.setBackgroundColor(ProjectConfiguration.idleBackgroundColor)
                 personView.setTextColor(ProjectConfiguration.idleTextColor)
